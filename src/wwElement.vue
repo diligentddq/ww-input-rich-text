@@ -694,7 +694,8 @@ export default {
                     }),
                     Markdown.configure({ breaks: true }),
                     Image.configure({ ...this.editorConfig.image }),
-                    this.editorConfig.mention.enabled &&
+                    // Conditionally add Mention extension
+                    ...(this.editorConfig.mention.enabled ? [
                         Mention.configure({
                             HTMLAttributes: {
                                 class: 'mention',
@@ -708,13 +709,14 @@ export default {
                                 allowSpaces: this.editorConfig.mention.allowSpaces,
                                 char: this.editorConfig.mention.char,
                             },
-                        }),
-                            Table.configure({
-                                resizable: true,
-                            }),
-                            TableRow,
-                            TableCell,
-                            TableHeader,
+                        }) 
+                    ] : []),
+                    Table.configure({
+                        resizable: true,
+                    }),
+                    TableRow,
+                    TableCell,
+                    TableHeader,
                 ],
                 onCreate: () => {
                     this.setValue(this.getContent());
