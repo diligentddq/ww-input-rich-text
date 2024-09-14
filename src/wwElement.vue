@@ -243,7 +243,7 @@
                   <span class="fa-stack fa-lg">
                     <!-- Large table icon -->
                     <i class="fas fa-table"></i>
-                    <i class="fas fa-plus fa-stack-2x inverse"></i>
+                    <i class="fas fa-plus fa-stack-1x inverse"></i>
                   </span>
                   Add Row
                 </button>
