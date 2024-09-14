@@ -1011,14 +1011,6 @@ export default {
             pointer-events: none;
             height: 0;
         }
-
-          mark {
-            background-color: #FAF594;
-            border-radius: 0.4rem;
-            box-decoration-break: clone;
-            padding: 0.1rem 0.3rem;
-          }
-
         h1 {
             font-size: var(--h1-fontSize);
             font-family: var(--h1-fontFamily);
