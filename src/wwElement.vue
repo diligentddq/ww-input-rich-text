@@ -855,13 +855,13 @@ export default {
             if (this.content.output === 'markdown') return this.richEditor.storage.markdown.getMarkdown();
             return this.richEditor.getHTML();
         },
-    },
-    insertTable() {
+        insertTable() {
     if (!this.richEditor.can().insertTable()) {
         alert('Cannot insert table here!');
         return;
     }
     this.richEditor.chain().focus().insertTable({ rows: 3, cols: 3, withHeaderRow: true }).run();
+    },
     },
     mounted() {
         this.loadEditor();
