@@ -1001,9 +1001,6 @@ export default {
         max-height: 100%;
         overflow: auto;
         padding: 8px;
-        .highlight {
-        background-color: #FFFF00; // Set your desired default highlight color
-    }
 
         &-focused {
             outline: unset;
