@@ -943,6 +943,21 @@ export default {
             }
             this.richEditor.chain().focus().insertTable({ rows: 3, cols: 3, withHeaderRow: true }).run();
     },
+        addRowAfter() {
+            if (!this.richEditor.can().addRowAfter()) {
+              alert('Cannot add a row here!');
+              return;
+            }
+            this.richEditor.chain().focus().addRowAfter().run();
+          },
+        
+          deleteRow() {
+            if (!this.richEditor.can().deleteRow()) {
+              alert('Cannot delete this row!');
+              return;
+            }
+            this.richEditor.chain().focus().deleteRow().run();
+          },
     toggleHighlight() {
         if (this.richEditor.isActive('highlight')) {
         this.richEditor.chain().focus().unsetHighlight().run();
