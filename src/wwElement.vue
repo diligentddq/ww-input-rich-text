@@ -215,7 +215,7 @@
                 <button
                     type="button"
                     class="ww-rich-text__menu-item"
-                    @click="insert_table"
+                    @click="insertTable"
                     :disabled="!isEditable"
                     v-if= true
                 > 
@@ -853,6 +853,13 @@ export default {
             if (this.content.output === 'markdown') return this.richEditor.storage.markdown.getMarkdown();
             return this.richEditor.getHTML();
         },
+    },
+    insertTable() {
+    if (!this.richEditor.can().insertTable()) {
+        alert('Cannot insert table here!');
+        return;
+    }
+    this.richEditor.chain().focus().insertTable({ rows: 3, cols: 3, withHeaderRow: true }).run();
     },
     mounted() {
         this.loadEditor();
