@@ -862,11 +862,6 @@ export default {
             return;
         }
         this.richEditor.chain().focus().insertTable({ rows: 3, cols: 3, withHeaderRow: true }).run();
-    
-        // Apply table borders by setting CSS class or manually adding a border
-        this.richEditor.chain().focus().setTableAttributes({
-            border: "1"
-        }).run();
     },
     mounted() {
         this.loadEditor();
