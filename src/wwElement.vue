@@ -231,6 +231,15 @@
                 >
                     <i class="fas fa-redo"></i>
                 </button>
+                <button
+                    type="button"
+                    class="ww-rich-text__menu-item"
+                    @click="redo"
+                    :disabled="!isEditable"
+                    v-if= true
+                > 
+                    <i class="fas fa-table"></i>
+            </button>
             </div>
             <wwElement class="ww-rich-text__menu" v-else-if="content.customMenu" v-bind="content.customMenuElement" />
             <editor-content :editor="richEditor" :style="richStyles" />
