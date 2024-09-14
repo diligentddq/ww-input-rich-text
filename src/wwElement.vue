@@ -921,11 +921,7 @@ export default {
             this.richEditor.chain().focus().insertTable({ rows: 3, cols: 3, withHeaderRow: true }).run();
     },
     toggleHighlight() {
-        if (this.richEditor.isActive('highlight')) {
-        this.richEditor.chain().focus().unsetHighlight().run();
-        } else {
-        this.richEditor.chain().focus().setHighlight({ color: this.highlightColor }).run();
-        }
+        this.richEditor.chain().focus().toggleHighlight({ color: '#ffc078' }).run();
     },
     },
     mounted() {
