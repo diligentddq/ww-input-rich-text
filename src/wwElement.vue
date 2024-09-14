@@ -268,6 +268,48 @@ import { Markdown } from 'tiptap-markdown';
 import { computed } from 'vue';
 import suggestion from './suggestion.js';
 
+const CustomTableCell = TableCell.extend({
+  addAttributes() {
+    return {
+      ...this.parent?.(),
+      style: {
+        default: null,
+        parseHTML: (element) => element.getAttribute('style'),
+        renderHTML: (attributes) => {
+          return {
+            style: attributes.style || null,
+          };
+        },
+      },
+    };
+  },
+});
+
+const CustomTableHeader = TableHeader.extend({
+  addAttributes() {
+    return {
+      ...this.parent?.(),
+      style: {
+        default: null,
+        parseHTML: (element) => element.getAttribute('style'),
+        renderHTML: (attributes) => {
+          return {
+            style: attributes.style || null,
+          };
+        },
+      },
+    };
+  },
+});
+
+const CustomTableRow = TableRow.extend({
+  addAttributes() {
+    return {
+      ...this.parent?.(),
+    };
+  },
+});
+
 function extractMentions(acc, currentNode) {
     if (currentNode.type === 'mention') {
         acc.push(currentNode.attrs.id);
@@ -717,6 +759,9 @@ export default {
                     TableRow,
                     TableCell,
                     TableHeader,
+                    CustomTableCell,
+                    CustomTableHeader,
+                    CustomTableRow,
                 ],
                 onCreate: () => {
                     this.setValue(this.getContent());
