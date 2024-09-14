@@ -1,4 +1,5 @@
 <template>
+    
     <div
         class="ww-rich-text"
         :class="{ '-readonly': isReadonly }"
