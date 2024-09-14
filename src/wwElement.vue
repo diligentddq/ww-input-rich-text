@@ -284,6 +284,42 @@ const CustomTable = Table.extend({
     },
 });
 
+const CustomTableCell = TableCell.extend({
+  addAttributes() {
+    return {
+      ...this.parent?.(),
+      style: {
+        default: null,
+        parseHTML: element => element.getAttribute('style') || null,
+        renderHTML: attributes => {
+          return attributes.style ? { style: attributes.style } : {};
+        },
+      },
+    };
+  },
+  renderHTML({ node, HTMLAttributes }) {
+    return ['td', mergeAttributes(this.options.HTMLAttributes, HTMLAttributes), 0];
+  },
+});
+
+const CustomTableCell = TableCell.extend({
+  addAttributes() {
+    return {
+      ...this.parent?.(),
+      style: {
+        default: null,
+        parseHTML: element => element.getAttribute('style') || null,
+        renderHTML: attributes => {
+          return attributes.style ? { style: attributes.style } : {};
+        },
+      },
+    };
+  },
+  renderHTML({ node, HTMLAttributes }) {
+    return ['td', mergeAttributes(this.options.HTMLAttributes, HTMLAttributes), 0];
+  },
+});
+
 function extractMentions(acc, currentNode) {
     if (currentNode.type === 'mention') {
         acc.push(currentNode.attrs.id);
@@ -734,8 +770,8 @@ export default {
             },
         }),
                     TableRow,
-                    TableCell,
-                    TableHeader,
+                    CustomTableHeader,
+                    CustomTableCell,
                 ],
                 onCreate: () => {
                     this.setValue(this.getContent());
