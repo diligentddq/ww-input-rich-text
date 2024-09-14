@@ -917,7 +917,7 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .ww-rich-text {
     --menu-color: unset;
     display: flex;
@@ -1097,13 +1097,14 @@ export default {
         }
 
         table {
-            margin: 0px 0 !important;
+            margin: 4px 0 !important;
             width: 100% !important;
             display: table;
             border-collapse: collapse;
             box-sizing: border-box;
             text-indent: initial;
             border-spacing: 2px;
+            background-color: transparent !important;
 
             /*thead > tr {
                 background: #f7f7fa;
@@ -1123,6 +1124,7 @@ export default {
                 text-align: left;
                 padding: 1.25em 1rem !important;
                 border: 1px solid #d1cfd7
+                background-color: transparent !important; 
             }
             tbody {
                 border: 1px solid #d1cfd7;
