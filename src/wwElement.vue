@@ -775,7 +775,6 @@ export default {
                     CustomTableCell,
                     CustomTableHeader,
                     CustomTableRow,
-                    Highlight.configure({ multicolor: true }),
                 ],
                 onCreate: () => {
                     this.setValue(this.getContent());
