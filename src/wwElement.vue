@@ -278,7 +278,7 @@ import TableHeader from '@tiptap/extension-table-header';
 import { Markdown } from 'tiptap-markdown';
 import { computed } from 'vue';
 import suggestion from './suggestion.js';
-import highlight from '@tiptap/extension-highlight';
+import Highlight from '@tiptap/extension-highlight';
 
 const CustomTableCell = TableCell.extend({
   addAttributes() {
