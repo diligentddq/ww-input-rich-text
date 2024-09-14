@@ -1052,7 +1052,7 @@ export default {
         }
 
         table {
-            margin: 64px 0 !important;
+            margin: 0px 0 !important;
             width: 100% !important;
             display: table;
             border-collapse: collapse;
@@ -1060,7 +1060,7 @@ export default {
             text-indent: initial;
             border-spacing: 2px;
 
-            thead > tr {
+            /*thead > tr {
                 background: #f7f7fa;
 
                 th {
@@ -1072,7 +1072,7 @@ export default {
                     line-height: 18px;
                     letter-spacing: -0.08px;
                 }
-            }
+            }*/
             td,
             th {
                 text-align: left;
@@ -1080,9 +1080,9 @@ export default {
             }
             tbody {
                 border: 1px solid #d1cfd7;
-                tr:nth-child(2n) {
+                /*tr:nth-child(2n) {
                     background: #f7f7fa;
-                }
+                }*/
             }
         }
         blockquote {
