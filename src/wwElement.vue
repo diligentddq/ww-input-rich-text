@@ -240,7 +240,14 @@
                   :disabled="!isEditable"
                   v-if="isCursorInTable"
                 >
-                  <i class="fas fa-plus"></i> Add Row
+                  <span class="fa-stack fa-lg">
+                    <!-- Large table icon -->
+                    <i class="fas fa-table fa-stack-2x"></i>
+                
+                    <!-- Small plus icon on top -->
+                    <i class="fas fa-plus fa-stack-1x fa-inverse" style="font-size: 0.5em;"></i>
+                  </span>
+                  Add Row
                 </button>
                 <button
                   type="button"
