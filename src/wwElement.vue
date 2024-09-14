@@ -242,10 +242,10 @@
                 >
                   <span class="fa-stack fa-lg">
                     <!-- Large table icon -->
-                    <i class="fas fa-table fa-stack-1x"></i>
+                    <i class="fas fa-table"></i>
                 
                     <!-- Small plus icon on top -->
-                    <i class="fas fa-plus fa-stack-1x" style="font-size: 0.5em;"></i>
+                    <i class="fas fa-plus fa-stack-1x inverse" style="font-size: 0.5em;"></i>
                   </span>
                   Add Row
                 </button>
