@@ -66,7 +66,7 @@
                   @click="toggleHighlight"
                   :class="{ 'is-active': richEditor.isActive('highlight') }"
                   :disabled="!isEditable"
-                  v-if="menu.highlight"
+                  v-if= true
                 >
           <i class="fas fa-highlighter"></i>
         </button>
