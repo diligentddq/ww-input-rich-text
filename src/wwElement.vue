@@ -927,7 +927,7 @@ export default {
         if (this.richEditor.isActive('highlight')) {
         this.richEditor.chain().focus().unsetHighlight().run();
         } else {
-        this.richEditor.chain().focus().setHighlight({ color: this.highlightColor }).run();
+        this.richEditor.chain().focus().setHighlight({ color: '#FFFF00' }).run();
         }
     },
     },
