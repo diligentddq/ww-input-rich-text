@@ -63,7 +63,7 @@
                 <button
                   type="button"
                   class="ww-rich-text__menu-item"
-                  @click="toggleHighlight"
+                  @click= "toggleStrike <!--"toggleHighlight"-->
                   :class="{ 'is-active': richEditor.isActive('highlight') }"
                   :disabled="!isEditable"
                   v-if= true
@@ -921,9 +921,7 @@ export default {
             }
             this.richEditor.chain().focus().insertTable({ rows: 3, cols: 3, withHeaderRow: true }).run();
     },
-    toggleHighlight() {
-        this.richEditor.chain().focus().toggleHighlight({ color: '#ffc078' }).run();
-    },
+
     },
     mounted() {
         this.loadEditor();
