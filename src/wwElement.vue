@@ -917,7 +917,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .ww-rich-text {
     --menu-color: unset;
     display: flex;
