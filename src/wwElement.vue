@@ -1019,7 +1019,7 @@ export default {
         background-color: #FAF594;
         border-radius: 0.4rem;
         box-decoration-break: clone;
-        padding: 0.1rem 0.3rem;
+        padding: 0.1rem 0.2rem;
     }
 
         h1 {
