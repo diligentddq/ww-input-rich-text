@@ -268,6 +268,22 @@ import { Markdown } from 'tiptap-markdown';
 import { computed } from 'vue';
 import suggestion from './suggestion.js';
 
+const CustomTable = Table.extend({
+    addAttributes() {
+        return {
+            class: {
+                default: null,
+            },
+            style: {
+                default: 'margin: 0; width: 100%; border-collapse: collapse; box-sizing: border-box; text-indent: initial; border-spacing: 2px;',
+            },
+        };
+    },
+    renderHTML({ node, HTMLAttributes }) {
+        return ['table', mergeAttributes(this.options.HTMLAttributes, HTMLAttributes), 0];
+    },
+});
+
 function extractMentions(acc, currentNode) {
     if (currentNode.type === 'mention') {
         acc.push(currentNode.attrs.id);
@@ -711,9 +727,12 @@ export default {
                             },
                         }) 
                     ] : []),
-                    Table.configure({
-                        resizable: true,
-                    }),
+                    CustomTable.configure({
+            resizable: true,
+            HTMLAttributes: {
+                style: 'margin: 0; width: 100%; border-collapse: collapse; box-sizing: border-box; text-indent: initial; border-spacing: 2px;',
+            },
+        }),
                     TableRow,
                     TableCell,
                     TableHeader,
