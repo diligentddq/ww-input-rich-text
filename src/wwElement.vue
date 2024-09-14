@@ -920,14 +920,8 @@ export default {
             return;
         }
         this.richEditor.chain().focus().insertTable({ rows: 3, cols: 3, withHeaderRow: true }).run();
-    }, // Ensure the closing brace and comma are present here
-    toggleHighlight() {
-        if (this.richEditor.isActive('highlight')) {
-            this.richEditor.chain().focus().unsetHighlight().run();
-        } else {
-            this.richEditor.chain().focus().setHighlight().run();
-        }
     },
+    
     },
     mounted() {
         this.loadEditor();
@@ -1118,6 +1112,12 @@ export default {
             color: var(--mention-color);
         }
 
+      mark {
+        background-color: #FAF594;
+        border-radius: 0.4rem;
+        box-decoration-break: clone;
+        padding: 0.1rem 0.3rem;
+      }
         table {
             margin: 4px 0 !important;
             width: 100% !important;
