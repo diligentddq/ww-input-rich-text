@@ -563,6 +563,7 @@ export default {
                 blockquote: this.content.parameterQuote ?? true,
                 undo: this.content.parameterUndo ?? true,
                 redo: this.content.parameterRedo ?? true,
+                highlight: this.content.highlight ?? true
             };
         },
         editorConfig() {
