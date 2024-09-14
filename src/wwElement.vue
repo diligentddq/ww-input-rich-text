@@ -232,6 +232,26 @@
                 > 
                     <i class="fas fa-table"></i>
             </button>
+                <span class="separator" v-if="isCursorInTable"></span>
+                <button
+                  type="button"
+                  class="ww-rich-text__menu-item"
+                  @click="addRowAfter"
+                  :disabled="!isEditable"
+                  v-if="isCursorInTable"
+                >
+                  <i class="fas fa-plus"></i> Add Row
+                </button>
+                <button
+                  type="button"
+                  class="ww-rich-text__menu-item"
+                  @click="deleteRow"
+                  :disabled="!isEditable"
+                  v-if="isCursorInTable"
+                >
+                  <i class="fas fa-minus"></i> Delete Row
+                </button>
+                
                 <!-- Undo/Redo -->
                 <button
                     type="button"
@@ -478,6 +498,9 @@ export default {
         },
     },
     computed: {
+          isCursorInTable() {
+    return this.richEditor.isActive('table');
+  },
         isEditing() {
             /* wwEditor:start */
             return this.wwEditorState.editMode === wwLib.wwEditorHelper.EDIT_MODES.EDITION;
