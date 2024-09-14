@@ -278,7 +278,6 @@ import TableHeader from '@tiptap/extension-table-header';
 import { Markdown } from 'tiptap-markdown';
 import { computed } from 'vue';
 import suggestion from './suggestion.js';
-import Highlight from '@tiptap/extension-highlight';
 
 const CustomTableCell = TableCell.extend({
   addAttributes() {
@@ -549,7 +548,6 @@ export default {
                 italic: this.content.parameterItalic ?? true,
                 underline: this.content.parameterUnderline ?? true,
                 strike: this.content.parameterStrike ?? true,
-                highlight: true,
                 alignLeft: this.content.parameterAlignLeft ?? false,
                 alignCenter: this.content.parameterAlignCenter ?? false,
                 alignRight: this.content.parameterAlignRight ?? false,
@@ -775,7 +773,6 @@ export default {
                     CustomTableCell,
                     CustomTableHeader,
                     CustomTableRow,
-                    Highlight,
                 ],
                 onCreate: () => {
                     this.setValue(this.getContent());
@@ -914,14 +911,20 @@ export default {
             if (this.content.output === 'markdown') return this.richEditor.storage.markdown.getMarkdown();
             return this.richEditor.getHTML();
         },
-    insertTable() {
-        if (!this.richEditor.can().insertTable()) {
-            alert('Cannot insert table here!');
-            return;
-        }
-        this.richEditor.chain().focus().insertTable({ rows: 3, cols: 3, withHeaderRow: true }).run();
+        insertTable() {
+            if (!this.richEditor.can().insertTable()) {
+                alert('Cannot insert table here!');
+                return;
+            }
+            this.richEditor.chain().focus().insertTable({ rows: 3, cols: 3, withHeaderRow: true }).run();
     },
-    
+    toggleHighlight() {
+        if (this.richEditor.isActive('highlight')) {
+        this.richEditor.chain().focus().unsetHighlight().run();
+        } else {
+        this.richEditor.chain().focus().setHighlight({ color: this.highlightColor }).run();
+        }
+    },
     },
     mounted() {
         this.loadEditor();
@@ -995,7 +998,6 @@ export default {
         max-height: 100%;
         overflow: auto;
         padding: 8px;
-
         &-focused {
             outline: unset;
         }
@@ -1112,12 +1114,6 @@ export default {
             color: var(--mention-color);
         }
 
-      mark {
-        background-color: #FAF594;
-        border-radius: 0.4rem;
-        box-decoration-break: clone;
-        padding: 0.1rem 0.3rem;
-      }
         table {
             margin: 4px 0 !important;
             width: 100% !important;
@@ -1226,5 +1222,4 @@ export default {
         cursor: inherit;
     }
 }
-    
 </style>
