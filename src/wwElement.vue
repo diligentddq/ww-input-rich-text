@@ -278,6 +278,7 @@ import TableHeader from '@tiptap/extension-table-header';
 import { Markdown } from 'tiptap-markdown';
 import { computed } from 'vue';
 import suggestion from './suggestion.js';
+import Highlight from '@tiptap/extension-highlight';
 
 const CustomTableCell = TableCell.extend({
   addAttributes() {
@@ -774,6 +775,9 @@ export default {
                     CustomTableCell,
                     CustomTableHeader,
                     CustomTableRow,
+                    Highlight.configure({
+          multicolor: false, // Since you only want yellow highlights
+        }),
                 ],
                 onCreate: () => {
                     this.setValue(this.getContent());
