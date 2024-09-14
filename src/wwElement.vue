@@ -857,11 +857,16 @@ export default {
         },
     },
     insertTable() {
-    if (!this.richEditor.can().insertTable()) {
-        alert('Cannot insert table here!');
-        return;
-    }
-    this.richEditor.chain().focus().insertTable({ rows: 3, cols: 3, withHeaderRow: true }).run();
+        if (!this.richEditor.can().insertTable()) {
+            alert('Cannot insert table here!');
+            return;
+        }
+        this.richEditor.chain().focus().insertTable({ rows: 3, cols: 3, withHeaderRow: true }).run();
+    
+        // Apply table borders by setting CSS class or manually adding a border
+        this.richEditor.chain().focus().setTableAttributes({
+            border: "1"
+        }).run();
     },
     mounted() {
         this.loadEditor();
@@ -1077,6 +1082,7 @@ export default {
             th {
                 text-align: left;
                 padding: 1.25em 1rem !important;
+                border: 1px solid #d1cfd7
             }
             tbody {
                 border: 1px solid #d1cfd7;
