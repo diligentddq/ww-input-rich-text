@@ -278,6 +278,7 @@ import TableHeader from '@tiptap/extension-table-header';
 import { Markdown } from 'tiptap-markdown';
 import { computed } from 'vue';
 import suggestion from './suggestion.js';
+import Highlight from '@tiptap/extension-highlight';
 
 const CustomTableCell = TableCell.extend({
   addAttributes() {
@@ -773,6 +774,7 @@ export default {
                     CustomTableCell,
                     CustomTableHeader,
                     CustomTableRow,
+                    Highlight.configure({ multicolor: true }),
                 ],
                 onCreate: () => {
                     this.setValue(this.getContent());
@@ -1013,6 +1015,13 @@ export default {
             pointer-events: none;
             height: 0;
         }
+
+          mark {
+            background-color: #FAF594;
+            border-radius: 0.4rem;
+            box-decoration-break: clone;
+            padding: 0.1rem 0.3rem;
+          }
 
         h1 {
             font-size: var(--h1-fontSize);
