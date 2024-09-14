@@ -39,6 +39,7 @@
         "prosemirror-keymap": "1.2.0",
         "prosemirror-schema-list": "1.2.2",
         "tippy.js": "6.3.7",
-        "tiptap-markdown": "0.8.10"
+        "tiptap-markdown": "0.8.10",
+        "@tiptap/extension-highlight": "^2.5.0"
     }
 }
