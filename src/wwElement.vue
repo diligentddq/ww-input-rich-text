@@ -1,5 +1,4 @@
 <template>
-    
     <div
         class="ww-rich-text"
         :class="{ '-readonly': isReadonly }"
@@ -1228,4 +1227,5 @@ export default {
         cursor: inherit;
     }
 }
+    
 </style>
