@@ -59,6 +59,17 @@
                 <!-- Show the separator only if at least on of the previous block are visible -->
                 <span class="separator" v-if="menu.bold || menu.italic || menu.underline || menu.strike"></span>
 
+                <!--highlight -->
+                <button
+                  type="button"
+                  class="ww-rich-text__menu-item"
+                  @click="toggleHighlight"
+                  :class="{ 'is-active': richEditor.isActive('highlight') }"
+                  :disabled="!isEditable"
+                  v-if="menu.highlight"
+                >
+          <i class="fas fa-highlighter"></i>
+        </button>
                 <!-- Text align -->
                 <button
                     type="button"
@@ -906,6 +917,13 @@ export default {
                 return;
             }
             this.richEditor.chain().focus().insertTable({ rows: 3, cols: 3, withHeaderRow: true }).run();
+    },
+    toggleHighlight() {
+        if (this.richEditor.isActive('highlight')) {
+        this.richEditor.chain().focus().unsetHighlight().run();
+        } else {
+        this.richEditor.chain().focus().setHighlight({ color: this.highlightColor }).run();
+        }
     },
     },
     mounted() {
