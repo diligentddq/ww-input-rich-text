@@ -1123,7 +1123,7 @@ export default {
             th {
                 text-align: left;
                 padding: 1.25em 1rem !important;
-                border: 1px solid #d1cfd7
+                border: 1px solid #d1cfd7;
                 background-color: transparent !important; 
             }
             tbody {
