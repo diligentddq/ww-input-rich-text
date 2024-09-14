@@ -211,7 +211,16 @@
                 </button>
 
                 <span class="separator" v-if="menu.link || menu.image || menu.codeBlock || menu.blockquote"></span>
-
+                <!-- table -->
+                <button
+                    type="button"
+                    class="ww-rich-text__menu-item"
+                    @click="insert_table"
+                    :disabled="!isEditable"
+                    v-if= true
+                > 
+                    <i class="fas fa-table"></i>
+            </button>
                 <!-- Undo/Redo -->
                 <button
                     type="button"
@@ -231,15 +240,6 @@
                 >
                     <i class="fas fa-redo"></i>
                 </button>
-                <button
-                    type="button"
-                    class="ww-rich-text__menu-item"
-                    @click="redo"
-                    :disabled="!isEditable"
-                    v-if= true
-                > 
-                    <i class="fas fa-table"></i>
-            </button>
             </div>
             <wwElement class="ww-rich-text__menu" v-else-if="content.customMenu" v-bind="content.customMenuElement" />
             <editor-content :editor="richEditor" :style="richStyles" />
@@ -260,6 +260,10 @@ import Image from '@tiptap/extension-image';
 import TaskItem from '@tiptap/extension-task-item';
 import TextAlign from '@tiptap/extension-text-align';
 import TaskList from '@tiptap/extension-task-list';
+import Table from '@tiptap/extension-table';
+import TableRow from '@tiptap/extension-table-row';
+import TableCell from '@tiptap/extension-table-cell';
+import TableHeader from '@tiptap/extension-table-header';
 import { Markdown } from 'tiptap-markdown';
 import { computed } from 'vue';
 import suggestion from './suggestion.js';
