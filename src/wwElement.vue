@@ -925,9 +925,9 @@ export default {
     },
     toggleHighlight() {
         if (this.richEditor.isActive('highlight')) {
-        this.richEditor.chain().focus().unsetHighlight().run();
+            this.richEditor.chain().focus().unsetHighlight().run();
         } else {
-        this.richEditor.chain().focus().setHighlight({ color: '#FFFF00' }).run();
+            this.richEditor.chain().focus().setHighlight().run(); // Removed color parameter
         }
     },
     },
@@ -1003,6 +1003,10 @@ export default {
         max-height: 100%;
         overflow: auto;
         padding: 8px;
+        .highlight {
+        background-color: #FFFF00; // Set your desired default highlight color
+    }
+
         &-focused {
             outline: unset;
         }
