@@ -776,7 +776,8 @@ export default {
                     CustomTableHeader,
                     CustomTableRow,
                     Highlight.configure({
-                      multicolor: false, // Since you only want yellow highlights
+                      multicolor: false, // Single color
+                      defaultColor: '#FFFF00', // Specify default highlight color
                     }),
                 ],
                 onCreate: () => {
