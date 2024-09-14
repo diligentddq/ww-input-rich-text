@@ -775,10 +775,7 @@ export default {
                     CustomTableCell,
                     CustomTableHeader,
                     CustomTableRow,
-                    Highlight.configure({
-                      multicolor: false, // Single color
-                      defaultColor: '#FFFF00', // Specify default highlight color
-                    }),
+                    Highlight,
                 ],
                 onCreate: () => {
                     this.setValue(this.getContent());
