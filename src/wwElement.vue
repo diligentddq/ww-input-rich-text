@@ -268,6 +268,78 @@ import { Markdown } from 'tiptap-markdown';
 import { computed } from 'vue';
 import suggestion from './suggestion.js';
 
+
+import { Node } from '@tiptap/core';
+
+const CustomTable = Node.create({
+  name: 'table',
+  addAttributes() {
+    return {
+      style: {
+        default: null,
+        parseHTML: element => element.style.cssText,
+        renderHTML: attributes => {
+          return {
+            style: attributes.style,
+          };
+        },
+      },
+    };
+  },
+});
+
+const CustomTableRow = Node.create({
+  name: 'tableRow',
+  addAttributes() {
+    return {
+      style: {
+        default: null,
+        parseHTML: element => element.style.cssText,
+        renderHTML: attributes => {
+          return {
+            style: attributes.style,
+          };
+        },
+      },
+    };
+  },
+});
+
+const CustomTableCell = Node.create({
+  name: 'tableCell',
+  addAttributes() {
+    return {
+      style: {
+        default: null,
+        parseHTML: element => element.style.cssText,
+        renderHTML: attributes => {
+          return {
+            style: attributes.style,
+          };
+        },
+      },
+    };
+  },
+});
+
+const CustomTableHeader = Node.create({
+  name: 'tableHeader',
+  addAttributes() {
+    return {
+      style: {
+        default: null,
+        parseHTML: element => element.style.cssText,
+        renderHTML: attributes => {
+          return {
+            style: attributes.style,
+          };
+        },
+      },
+    };
+  },
+});
+
+
 function extractMentions(acc, currentNode) {
     if (currentNode.type === 'mention') {
         acc.push(currentNode.attrs.id);
@@ -714,9 +786,10 @@ export default {
                     Table.configure({
                         resizable: true,
                     }),
-                    TableRow,
-                    TableCell,
-                    TableHeader,
+                    CustomTable,
+                    CustomTableRow,
+                    CustomTableCell,
+                    CustomTableHeader,
                 ],
                 onCreate: () => {
                     this.setValue(this.getContent());
