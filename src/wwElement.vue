@@ -242,8 +242,8 @@
                 >
                   <span class="fa-stack fa-lg">
                     <!-- Large table icon -->
-                    <i class="fas fa-long-arrow-right fa-stack-1x inverse" style="font-size: 0.5em;"></i>
                     <i class="fas fa-table"></i>
+                    <i class="fas fa-lplus fa-stack-1x inverse" style="font-size: 0.5em;"></i>
                   </span>
                   Add Row
                 </button>
@@ -946,7 +946,7 @@ export default {
                 alert('Cannot insert table here!');
                 return;
             }
-            this.richEditor.chain().focus().insertTable({ rows: 3, cols: 3, withHeaderRow: true }).run();
+            this.richEditor.chain().focus().insertTable({ rows: 3, cols: 2, withHeaderRow: true }).run();
     },
         addRowAfter() {
             if (!this.richEditor.can().addRowAfter()) {
