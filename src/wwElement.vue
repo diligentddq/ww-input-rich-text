@@ -774,6 +774,7 @@ export default {
                     CustomTableCell,
                     CustomTableHeader,
                     CustomTableRow,
+                    Highlight,
                 ],
                 onCreate: () => {
                     this.setValue(this.getContent());
