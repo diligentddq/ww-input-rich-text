@@ -1104,7 +1104,7 @@ export default {
             box-sizing: border-box;
             text-indent: initial;
             border-spacing: 2px;
-            background-color: transparent !important;
+            background-color: transparent;
 
             /*thead > tr {
                 background: #f7f7fa;
@@ -1124,7 +1124,7 @@ export default {
                 text-align: left;
                 padding: 1.25em 1rem !important;
                 border: 1px solid #d1cfd7;
-                background-color: transparent !important; 
+                background-color: transparent; 
             }
             tbody {
                 border: 1px solid #d1cfd7;
