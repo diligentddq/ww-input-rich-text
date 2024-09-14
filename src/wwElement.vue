@@ -776,8 +776,8 @@ export default {
                     CustomTableHeader,
                     CustomTableRow,
                     Highlight.configure({
-          multicolor: false, // Since you only want yellow highlights
-        }),
+                      multicolor: false, // Since you only want yellow highlights
+                    }),
                 ],
                 onCreate: () => {
                     this.setValue(this.getContent());
