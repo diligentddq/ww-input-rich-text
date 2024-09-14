@@ -548,6 +548,7 @@ export default {
                 italic: this.content.parameterItalic ?? true,
                 underline: this.content.parameterUnderline ?? true,
                 strike: this.content.parameterStrike ?? true,
+                highlight: true,
                 alignLeft: this.content.parameterAlignLeft ?? false,
                 alignCenter: this.content.parameterAlignCenter ?? false,
                 alignRight: this.content.parameterAlignRight ?? false,
