@@ -63,7 +63,7 @@
                 <button
                   type="button"
                   class="ww-rich-text__menu-item"
-                  @click= "toggleStrike <!--"toggleHighlight"-->
+                  @click="toggleHighlight"
                   :class="{ 'is-active': richEditor.isActive('highlight') }"
                   :disabled="!isEditable"
                   v-if= true
@@ -278,7 +278,6 @@ import TableHeader from '@tiptap/extension-table-header';
 import { Markdown } from 'tiptap-markdown';
 import { computed } from 'vue';
 import suggestion from './suggestion.js';
-// import Highlight from '@tiptap/extension-highlight';
 
 const CustomTableCell = TableCell.extend({
   addAttributes() {
@@ -563,7 +562,6 @@ export default {
                 blockquote: this.content.parameterQuote ?? true,
                 undo: this.content.parameterUndo ?? true,
                 redo: this.content.parameterRedo ?? true,
-                // highlight: true
             };
         },
         editorConfig() {
@@ -920,7 +918,13 @@ export default {
             }
             this.richEditor.chain().focus().insertTable({ rows: 3, cols: 3, withHeaderRow: true }).run();
     },
-
+    toggleHighlight() {
+        if (this.richEditor.isActive('highlight')) {
+        this.richEditor.chain().focus().unsetHighlight().run();
+        } else {
+        this.richEditor.chain().focus().setHighlight({ color: this.highlightColor }).run();
+        }
+    },
     },
     mounted() {
         this.loadEditor();
@@ -1009,6 +1013,7 @@ export default {
             pointer-events: none;
             height: 0;
         }
+
         h1 {
             font-size: var(--h1-fontSize);
             font-family: var(--h1-fontFamily);
