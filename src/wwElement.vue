@@ -709,6 +709,12 @@ export default {
                                 char: this.editorConfig.mention.char,
                             },
                         }),
+                            Table.configure({
+                                resizable: true,
+                            }),
+                            TableRow,
+                            TableCell,
+                            TableHeader,
                 ],
                 onCreate: () => {
                     this.setValue(this.getContent());
