@@ -243,7 +243,7 @@
                   <span class="fa-stack fa-lg">
                     <!-- Large table icon -->
                     <i class="fas fa-table"></i>
-                    <i class="fas fa-plus fa-stack-1x inverse"></i>
+                    <i class="fas fa-plus inverse"></i>
                   </span>
                   Add Row
                 </button>
@@ -256,6 +256,20 @@
                 >
                   <i class="fas fa-minus"></i> Delete Row
                 </button>
+
+                <div v-if="isCursorInTable" class="dropdown">
+                    <button class="dropdown-button">
+                      <i class="fas fa-edit"></i> Edit Table
+                    </button>
+                    <div class="dropdown-content">
+                      <button @click="addRowAfter" :disabled="!isEditable">Add Row After</button>
+                      <button @click="addRowBefore" :disabled="!isEditable">Add Row Before</button>
+                      <button @click="addColumnAfter" :disabled="!isEditable">Add Column After</button>
+                      <button @click="addColumnBefore" :disabled="!isEditable">Add Column Before</button>
+                      <button @click="deleteRow" :disabled="!isEditable">Delete Row</button>
+                      <button @click="deleteColumn" :disabled="!isEditable">Delete Column</button>
+                    </div>
+                  </div>
                 
                 <!-- Undo/Redo -->
                 <button
