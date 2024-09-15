@@ -1,6 +1,6 @@
 {
     "name": "ww-rich-text",
-    "version": "3.0.1",
+    "version": "3.1.1",
     "scripts": {
         "build": "weweb build",
         "serve": "weweb serve"
@@ -15,6 +15,7 @@
     },
     "dependencies": {
         "@tiptap/extension-color": "^2.5.0",
+        "@tiptap/extension-highlight": "^2.5.0",
         "@tiptap/extension-image": "^2.5.0",
         "@tiptap/extension-link": "^2.5.0",
         "@tiptap/extension-mention": "^2.5.0",
@@ -40,6 +41,6 @@
         "prosemirror-schema-list": "1.2.2",
         "tippy.js": "6.3.7",
         "tiptap-markdown": "0.8.10",
-        "@tiptap/extension-highlight": "^2.5.0"
+        "yarn": "^1.22.22"
     }
 }

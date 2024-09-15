@@ -68,7 +68,10 @@
                   :disabled="!isEditable"
                   v-if= true
                 >
-          <i class="fas fa-highlighter"></i>
+                <span class="fa-layers fa-fw">
+                    <i class="fas rectangle-wide"></i>
+                    <i class="fas fa-i-cursor" data-fa-transform="shrink-8 down-2"></i>
+                    </span>
         </button>
                 <!-- Text align -->
                 <button
@@ -232,45 +235,19 @@
                 > 
                     <i class="fas fa-table"></i>
             </button>
-                <span class="separator" v-if="isCursorInTable"></span>
-                <button
-                  type="button"
-                  class="ww-rich-text__menu-item"
-                  @click="addRowAfter"
-                  :disabled="!isEditable"
-                  v-if="isCursorInTable"
-                >
-                  <span class="fa-stack fa-lg">
-                    <!-- Large table icon -->
-                    <i class="fas fa-table"></i>
-                    <i class="fas fa-plus inverse"></i>
-                  </span>
-                  Add Row
-                </button>
-                <button
-                  type="button"
-                  class="ww-rich-text__menu-item"
-                  @click="deleteRow"
-                  :disabled="!isEditable"
-                  v-if="isCursorInTable"
-                >
-                  <i class="fas fa-minus"></i> Delete Row
-                </button>
-
-                <div v-if="isCursorInTable" class="dropdown">
-                    <button class="dropdown-button">
-                      <i class="fas fa-edit"></i> Edit Table
-                    </button>
-                    <div class="dropdown-content">
-                      <button @click="addRowAfter" :disabled="!isEditable">Add Row After</button>
-                      <button @click="addRowBefore" :disabled="!isEditable">Add Row Before</button>
-                      <button @click="addColumnAfter" :disabled="!isEditable">Add Column After</button>
-                      <button @click="addColumnBefore" :disabled="!isEditable">Add Column Before</button>
-                      <button @click="deleteRow" :disabled="!isEditable">Delete Row</button>
-                      <button @click="deleteColumn" :disabled="!isEditable">Delete Column</button>
-                    </div>
-                  </div>
                 
+                <select v-if="isCursorInTable" class = "ww-rich-text__menu-item" @change="handleTableOptionChange">
+                    <option value="edit">Edit Table</option>
+                    <option value="addRowAfter">Add Row After</option>
+                    <option value="addRowBefore">Add Row Before</option>
+                    <option value="deleteRow">Delete Row</option>
+                    <option value="addColumnAfter">Add Column After</option>
+                    <option value="addColumnBefore">Add Column Before</option>
+                    <option value="deleteColumn">Delete Column</option>
+                    <!-- Add more options as needed -->
+                </select>
+                <span class="separator" v-if="isCursorInTable"></span>
+
                 <!-- Undo/Redo -->
                 <button
                     type="button"
@@ -318,6 +295,7 @@ import { Markdown } from 'tiptap-markdown';
 import { computed } from 'vue';
 import suggestion from './suggestion.js';
 import Highlight from '@tiptap/extension-highlight';
+import Gapcursor from '@tiptap/extension-gapcursor'
 
 const CustomTableCell = TableCell.extend({
   addAttributes() {
@@ -442,6 +420,7 @@ export default {
     data: () => ({
         richEditor: null,
         loading: false,
+        dropdownOpen: false,
     }),
 
     watch: {
@@ -817,6 +796,7 @@ export default {
                     CustomTableHeader,
                     CustomTableRow,
                     Highlight,
+                    Gapcursor,
                 ],
                 onCreate: () => {
                     this.setValue(this.getContent());
@@ -969,6 +949,13 @@ export default {
             }
             this.richEditor.chain().focus().addRowAfter().run();
           },
+          addRowBefore() {
+            if (!this.richEditor.can().addRowBefore()) {
+              alert('Cannot add a row here!');
+              return;
+            }
+            this.richEditor.chain().focus().addRowBefore().run();
+          },
         
           deleteRow() {
             if (!this.richEditor.can().deleteRow()) {
@@ -983,7 +970,34 @@ export default {
         } else {
         this.richEditor.chain().focus().setHighlight({ color: this.highlightColor }).run();
         }
-    },
+        },
+    toggleDropdown() {
+        this.dropdownOpen = !this.dropdownOpen; // Toggle dropdown visibility
+      },
+      handleTableOptionChange(event) {
+        const action = event.target.value;
+        switch (action) {
+            case 'addRowAfter':
+                this.addRowAfter();
+                break;
+            case 'addRowBefore':
+                this.addRowBefore();
+                break;
+            case 'deleteRow':
+                this.deleteRow();
+                break;
+            case 'addColumnAfter':
+                this.richEditor.chain().focus().addColumnAfter().run();
+                break;
+            case 'addColumnBefore':
+                this.richEditor.chain().focus().addColumnBefore().run();
+                break;
+            case 'deleteColumn':
+                this.richEditor.chain().focus().deleteColumn().run();
+                break;
+        }
+        event.target.value = 'edit'; // This makes the select act as a trigger rather than a state holder
+    }
     },
     mounted() {
         this.loadEditor();
@@ -1051,6 +1065,20 @@ export default {
         }
     }
 
+    .ww-rich-text__menu {
+        position: relative; /* Add this to ensure the dropdown is positioned relative to the menu */
+    }
+    
+    .dropdown-content {
+        position: absolute;
+        top: 100%; /* Position it right below the button */
+        left: 0;
+        z-index: 10; /* Ensure it's above other content */
+        border: 1px solid #ccc; /* Optional border */
+        min-width: 160px; /* Minimum width of the dropdown */
+        display: true;
+    }
+
     .ProseMirror {
         /* Basic editor styles */
         cursor: text;
@@ -1074,7 +1102,7 @@ export default {
         }
         mark {
         background-color: #FAF594;
-        border-radius: 0.4rem;
+        border-radius: 0.1rem;
         box-decoration-break: clone;
         padding: 0.1rem 0.2rem;
     }
@@ -1189,6 +1217,7 @@ export default {
             border-spacing: 2px;
             background-color: transparent;
 
+
             /*thead > tr {
                 background: #f7f7fa;
 
@@ -1207,8 +1236,29 @@ export default {
                 text-align: left;
                 padding: 1.25em 1rem !important;
                 border: 1px solid #d1cfd7;
-                background-color: transparent; 
+                background-color: transparent;
+                position: relative; 
+
+                .column-resize-handle {
+                    background-color: #007FFF;
+                    bottom: -2px;
+                    pointer-events: none;
+                    position: absolute;
+                    right: -2px;
+                    top: 0;
+                    width: 4px;
+                  }
             }
+
+
+            // .selectedCell:After {
+            //     background: rgba(0, 0, 255, 0.2) !important;
+            //     content: "";
+            //     left: 0; right: 0; top: 0; bottom: 0;
+            //     pointer-events: none;
+            //     position: absolute;
+            //     z-index: 2;
+            //   }
             tbody {
                 border: 1px solid #d1cfd7;
                 /*tr:nth-child(2n) {
@@ -1216,6 +1266,12 @@ export default {
                 }*/
             }
         }
+
+        &.resize-cursor {
+            cursor: ew-resize;
+            cursor: col-resize;
+          }
+
         blockquote {
             color: var(--blockquote-color);
             border-left: 0.2rem solid var(--blockquote-border-color);
