@@ -68,11 +68,8 @@
                   :disabled="!isEditable"
                   v-if= true
                 >
-                <span class="fa-layers fa-fw">
-                    <i class="fas rectangle-wide"></i>
-                    <i class="fas fa-i-cursor" data-fa-transform="shrink-8 down-2"></i>
-                    </span>
-        </button>
+                    <i class="fas fa-i-cursor"></i>
+                 </button>
                 <!-- Text align -->
                 <button
                     type="button"
@@ -726,6 +723,8 @@ export default {
                 '--img-max-height': this.content.img?.maxHeight,
                 // checkbox
                 '--checkbox-color': this.content.checkbox?.color,
+                //table
+                '--table-border-color': this.content.tableBorderColor,
             };
         },
         delay() {
@@ -1100,6 +1099,7 @@ export default {
             pointer-events: none;
             height: 0;
         }
+
         mark {
         background-color: #FAF594;
         border-radius: 0.1rem;
@@ -1231,6 +1231,13 @@ export default {
                     letter-spacing: -0.08px;
                 }
             }*/
+            CustomTableHeader, CustomTableRow {
+                text-align: left;
+                padding: 1.25em 1rem !important;
+                border: 1px solid #d1cfd7;
+                background-color: transparent;
+                position: relative; 
+            }
             td,
             th {
                 text-align: left;
@@ -1260,7 +1267,7 @@ export default {
             //     z-index: 2;
             //   }
             tbody {
-                border: 1px solid #d1cfd7;
+                border: 1px solid var('--table-border-color');
                 /*tr:nth-child(2n) {
                     background: #f7f7fa;
                 }*/

@@ -24,6 +24,7 @@ export default {
         customStylePropertiesOrder: [
             'customMenu',
             'menuColor',
+            'tableBorderColor',
             [
                 'selectedTag',
                 'h1',
@@ -376,6 +377,14 @@ export default {
             classes: true,
             responsive: true,
             hidden: content => content.customMenu,
+        },
+        tableBorderColor: {
+            label: {
+                en: 'Table Border Color',
+            },
+            type: 'Color',
+            defaultValue: '#000000', // Set a default color
+            bindable: true,
         },
         selectedTag: {
             label: {
