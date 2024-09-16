@@ -1252,7 +1252,7 @@ export default {
                 position: relative; 
 
                 .column-resize-handle {
-                    background-color: #007FFF;
+                    background-color: #007FFF !important;
                     bottom: -2px;
                     pointer-events: none;
                     position: absolute;
@@ -1284,8 +1284,8 @@ export default {
         }
 
         &.resize-cursor {
-            cursor: ew-resize;
-            cursor: col-resize;
+            cursor: ew-resize !important;
+            cursor: col-resize !important;
           }
 
         blockquote {
