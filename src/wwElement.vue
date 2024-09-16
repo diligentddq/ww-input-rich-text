@@ -725,6 +725,8 @@ export default {
                 '--checkbox-color': this.content.checkbox?.color,
                 //table
                 '--table-border-color': this.content.tableBorderColor,
+                '--exterior-table-border-width': this.content.tableExteriorBorderWidth,
+                '--exterior-table-border-color':this.content.tableExteriorBorderColor
             };
         },
         delay() {
@@ -1215,6 +1217,7 @@ export default {
             box-sizing: border-box;
             text-indent: initial;
             border-spacing: 2px;
+            border: var(--exterior-table-border-width) solid var(--exterior-table-border-color) !important;
             background-color: transparent !important;
 
 
@@ -1239,7 +1242,7 @@ export default {
             CustomTableHeader, CustomTableRow {
                 text-align: left;
                 padding: 1.25em 1rem !important;
-                border: 1px solid #d1cfd7;
+                border: 1px solid var(--table-border-color) !important; //var(--table-border-color);
                 background-color: transparent;
                 position: relative; 
             }
@@ -1247,7 +1250,7 @@ export default {
             th {
                 text-align: left;
                 padding: 1.25em 1rem !important;
-                border: 1px solid #d1cfd7;
+                border: 1px solid var(--table-border-color) !important;//var(--table-border-color);
                 background-color: transparent;
                 position: relative; 
 
@@ -1256,14 +1259,14 @@ export default {
                     bottom: -2px;
                     pointer-events: none;
                     position: absolute;
-                    right: -2px;
+                    right: -1px;
                     top: 0;
                     width: 4px;
                   }
             }
 
             .selectedCell{
-            background-color: rgba(0, 0, 255, 0.2) !important
+            background-color: #361EEA33 !important//rgba(0, 0, 255, 0.2)
             }
 
 
@@ -1276,7 +1279,7 @@ export default {
             //     z-index: 2;
             //   }
             tbody {
-                border: 1px solid var('--table-border-color');
+                border: 1px solid var(--table-border-color) !important;//var(--table-border-color);
                 /*tr:nth-child(2n) {
                     background: #f7f7fa;
                 }*/

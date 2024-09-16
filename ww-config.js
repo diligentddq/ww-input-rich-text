@@ -25,6 +25,8 @@ export default {
             'customMenu',
             'menuColor',
             'tableBorderColor',
+            'tableExteriorBorderColor',
+            'tableExteriorBorderWidth',
             [
                 'selectedTag',
                 'h1',
@@ -383,7 +385,23 @@ export default {
                 en: 'Table Border Color',
             },
             type: 'Color',
-            defaultValue: '#000000', // Set a default color
+            defaultValue: '#d1cfd7', // Set a default color
+            bindable: true,
+        },
+        tableExteriorBorderColor: {
+            label: {
+                en: 'Table Exterior Border Color',
+            },
+            type: 'Color',
+            defaultValue: '#d1cfd7',
+            bindable: true,
+        },
+        tableExteriorBorderWidth: {
+            label: {
+                en: 'Table Exterior Border Width',
+            },
+            type: 'Length',
+            defaultValue: '1px',
             bindable: true,
         },
         selectedTag: {
