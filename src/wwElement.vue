@@ -1215,7 +1215,7 @@ export default {
             box-sizing: border-box;
             text-indent: initial;
             border-spacing: 2px;
-            background-color: transparent;
+            background-color: transparent !important;
 
 
             /*thead > tr {
