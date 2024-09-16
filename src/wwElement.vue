@@ -235,11 +235,11 @@
                 
                 <select v-if="isCursorInTable" class = "ww-rich-text__menu-item" @change="handleTableOptionChange">
                     <option value="edit">Edit Table</option>
-                    <option value="addRowAfter">Add Row After</option>
                     <option value="addRowBefore">Add Row Before</option>
+                    <option value="addRowAfter">Add Row After</option>
                     <option value="deleteRow">Delete Row</option>
-                    <option value="addColumnAfter">Add Column After</option>
                     <option value="addColumnBefore">Add Column Before</option>
+                    <option value="addColumnAfter">Add Column After</option>
                     <option value="deleteColumn">Delete Column</option>
                     <!-- Add more options as needed -->
                 </select>
@@ -726,7 +726,8 @@ export default {
                 //table
                 '--table-border-color': this.content.tableBorderColor,
                 '--exterior-table-border-width': this.content.tableExteriorBorderWidth,
-                '--exterior-table-border-color':this.content.tableExteriorBorderColor
+                '--exterior-table-border-color':this.content.tableExteriorBorderColor,
+                '--border-selector-color': this.content.BorderSelector,
             };
         },
         delay() {
@@ -1109,6 +1110,48 @@ export default {
         padding: 0.1rem 0.2rem;
     }
 
+    ol {
+        counter-reset: item; /* Initialize the counter */
+        margin-left: 0em; /* Adjust the base margin for ordered lists */
+        padding-left: .6em;
+      }
+      
+      ol li {
+        display: block;
+        counter-increment: item; /* Increment the counter */
+        position: relative;
+        padding-left: 2.5em; /* Give space for the number */
+      }
+      
+      ol li::before {
+        content: counters(item, ".") "." " "; /* Create the "1.1" style for nested lists */
+        position: absolute;
+        left: 0; /* Numbers start at the left edge */
+        min-width: 2.5em; /* Ensure a minimum width to accommodate larger numbers */
+        text-align: right; /* Align numbers to the right */
+      }
+      
+      ol ol {
+        margin-left: 0em; /* Adjust indentation of nested <ol> */
+        counter-reset: item; /* Reset the counter for the nested list */
+      }
+      
+      ol ol li {
+        padding-left: 2.5em; /* Increase padding for nested lists */
+      }
+      
+      ol ol ol {
+        padding-left: 0em; /* Further increase padding for deeply nested lists */
+      }
+
+      ol ol ol li {
+        padding-left: 3.2em; /* Increase padding for nested lists */
+      }
+
+      
+      
+      
+
         h1 {
             font-size: var(--h1-fontSize);
             font-family: var(--h1-fontFamily);
@@ -1245,6 +1288,7 @@ export default {
                 border: 1px solid var(--table-border-color) !important; //var(--table-border-color);
                 background-color: transparent;
                 position: relative; 
+                fontWeight: normal !important;
             }
             td,
             th {
@@ -1252,12 +1296,13 @@ export default {
                 padding: 1.25em 1rem !important;
                 border: 1px solid var(--table-border-color) !important;//var(--table-border-color);
                 background-color: transparent;
-                position: relative; 
+                position: relative;
+                fontWeight: normal !important;
 
                 .column-resize-handle {
-                    background-color: #007FFF !important;
+                    background-color: var(--border-selector-color) !important;//var(--border-selector-color) !important;
                     bottom: -2px;
-                    pointer-events: none;
+                    pointer-event: none;
                     position: absolute;
                     right: -1px;
                     top: 0;

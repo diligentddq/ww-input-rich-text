@@ -27,6 +27,7 @@ export default {
             'tableBorderColor',
             'tableExteriorBorderColor',
             'tableExteriorBorderWidth',
+            'BorderSelector',
             [
                 'selectedTag',
                 'h1',
@@ -402,6 +403,14 @@ export default {
             },
             type: 'Length',
             defaultValue: '1px',
+            bindable: true,
+        },
+        BorderSelector: {
+            label: {
+                en: 'Border Selector Color',
+            },
+            type: 'Color',
+            defaultValue: '#007FFF',
             bindable: true,
         },
         selectedTag: {
