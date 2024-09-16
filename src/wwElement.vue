@@ -1218,6 +1218,11 @@ export default {
             background-color: transparent !important;
 
 
+            tr {
+                background-color: transparent !important;
+            }
+
+
             /*thead > tr {
                 background: #f7f7fa;
 
@@ -1255,6 +1260,10 @@ export default {
                     top: 0;
                     width: 4px;
                   }
+            }
+
+            .selectedCell{
+            background-color: rgba(0, 0, 255, 0.2) !important
             }
 
 
