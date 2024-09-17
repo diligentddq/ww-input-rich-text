@@ -1288,7 +1288,7 @@ export default {
                 border: 1px solid var(--table-border-color) !important; //var(--table-border-color);
                 background-color: transparent;
                 position: relative; 
-                fontWeight: normal !important;
+                font-weight: normal !important;
             }
             td,
             th {
@@ -1297,7 +1297,8 @@ export default {
                 border: 1px solid var(--table-border-color) !important;//var(--table-border-color);
                 background-color: transparent;
                 position: relative;
-                fontWeight: normal !important;
+                font-weight: normal !important;
+                font-size: 16px !important;
 
                 .column-resize-handle {
                     background-color: var(--border-selector-color) !important;//var(--border-selector-color) !important;
