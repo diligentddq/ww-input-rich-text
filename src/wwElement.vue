@@ -938,6 +938,10 @@ export default {
             return this.richEditor.getHTML();
         },
         insertTable() {
+            if (this.richEditor.isActive('table')) {
+                alert('You cannot insert a table inside another table!');
+                return;
+            }
             if (!this.richEditor.can().insertTable()) {
                 alert('Cannot insert table here!');
                 return;
