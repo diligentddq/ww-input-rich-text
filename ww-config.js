@@ -28,6 +28,7 @@ export default {
             'tableExteriorBorderColor',
             'tableExteriorBorderWidth',
             'BorderSelector',
+            'defaultBackgroundColor',
             [
                 'selectedTag',
                 'h1',
@@ -411,6 +412,14 @@ export default {
             },
             type: 'Color',
             defaultValue: '#007FFF',
+            bindable: true,
+        },
+        defaultBackgroundColor: {
+            label: {
+                en: 'Default Background Selector Color',
+            },
+            type: 'Color',
+            defaultValue: '#eaeaea',
             bindable: true,
         },
         selectedTag: {

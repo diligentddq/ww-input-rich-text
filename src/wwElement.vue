@@ -133,9 +133,10 @@
                         type="color"
                         @input="setColor($event.target.value)"
                         :value="richEditor.getAttributes('textStyle').color"
-                        style="display: none"
+                        style="opacity: 0; position: absolute; width= 0;" 
                         :disabled="!isEditable"
                     />
+                    <!-- can't translate the above becuase than the button overlaps with the highlighter -->
                 </label>
 
                 <span class="separator" v-if="menu.textColor"></span>
@@ -235,6 +236,7 @@
                 
                 <select v-if="isCursorInTable" class = "ww-rich-text__menu-item" @change="handleTableOptionChange">
                     <option value="edit">Edit Table</option>
+                    <option value="removeCellFill">Clear Cell Background</option>
                     <option value="addRowBefore">Add Row Before</option>
                     <option value="addRowAfter">Add Row After</option>
                     <option value="deleteRow">Delete Row</option>
@@ -243,6 +245,26 @@
                     <option value="deleteColumn">Delete Column</option>
                     <!-- Add more options as needed -->
                 </select>
+
+            <!--TABLE CELL FILL -->
+            <div v-if="isCursorInTable" class="ww-rich-text__menu-item fill-color-dropdown">
+                <!-- Button for the fill icon (applies the color) -->
+                <button @click="applyFillColorToSelectedCells" class="fill-color-btn">
+                    <i class="fas fa-fill-drip"></i>
+                </button>
+
+                <!-- Dropdown arrow acting as the color picker (no color box) -->
+                <label class="dropdown-arrow-btn" style="cursor: pointer;">
+                    <i class="fas fa-caret-down"></i>
+                    <input
+                        type="color"
+                        v-model="cellFillColor"
+                        @input="applyFillColorToSelectedCells"
+                        style="opacity: 0; position: absolute; width: 0; transform: translateX(-60px);"
+                    />
+                </label>
+            </div>
+
                 <span class="separator" v-if="isCursorInTable"></span>
 
                 <!-- Undo/Redo -->
@@ -418,6 +440,8 @@ export default {
         richEditor: null,
         loading: false,
         dropdownOpen: false,
+        isColorDropdownOpen: false,
+        cellFillColor: '#eaeaeb',
     }),
 
     watch: {
@@ -733,6 +757,9 @@ export default {
         delay() {
             return wwLib.wwUtils.getLengthUnit(this.content.debounceDelay)[0];
         },
+        defaultCellFill() {
+            return this.content.defaultBackgroundColor;
+        }
     },
     methods: {
         loadEditor() {
@@ -939,7 +966,7 @@ export default {
         },
         insertTable() {
             if (this.richEditor.isActive('table')) {
-                alert('You cannot insert a table inside another table!');
+                alert('Nested Tables cannot be rendered');
                 return;
             }
             if (!this.richEditor.can().insertTable()) {
@@ -1001,9 +1028,62 @@ export default {
             case 'deleteColumn':
                 this.richEditor.chain().focus().deleteColumn().run();
                 break;
+            case 'removeCellFill':
+                this.removeCellFill();
+                break;
         }
         event.target.value = 'edit'; // This makes the select act as a trigger rather than a state holder
-    }
+    },
+    toggleColorDropdown() {
+        // Toggle the visibility of the color picker dropdown
+        this.isColorDropdownOpen = !this.isColorDropdownOpen;
+    },
+    applyFillColorToSelectedCells() {
+        const selectedCells = this.richEditor.view.state.selection.ranges; // Get the selected cell ranges
+        
+        selectedCells.forEach(range => {
+            this.richEditor
+                .chain()
+                .focus()
+                .setCellAttribute('style', `background-color: ${this.cellFillColor}`)
+                .run(); // Store background color as cell attribute
+        });
+    },
+    removeCellFill() {
+        const { state, dispatch } = this.richEditor.view;
+        const { tr } = state;
+        const { selection } = state;
+        const { ranges } = selection;
+    
+        ranges.forEach(range => {
+            const from = range.$from.pos;
+            const to = range.$to.pos;
+            state.doc.nodesBetween(from, to, (node, pos) => {
+                if (node.type.name === 'tableCell' || node.type.name === 'tableHeader') {
+                    const cellAttrs = { ...node.attrs };
+                    if (cellAttrs.style) {
+                        // Split the style attribute into individual declarations
+                        const styles = cellAttrs.style.split(';').map(style => style.trim());
+                        // Remove the background-color declaration
+                        const updatedStyles = styles.filter(style => !style.startsWith('background-color'));
+                        // Reconstruct the style attribute
+                        cellAttrs.style = updatedStyles.join('; ').trim();
+                            // Remove the style attribute if it's empty
+                        if (!cellAttrs.style) {
+                            delete cellAttrs.style;
+                        }
+                        tr.setNodeMarkup(pos, null, cellAttrs);
+                    }
+                }
+            });
+        });
+        if (tr.docChanged) {
+            dispatch(tr);
+        }
+    },
+    
+
+    //PUT NEW METHODS ABOVE HERE
     },
     mounted() {
         this.loadEditor();
