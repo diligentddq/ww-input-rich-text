@@ -133,10 +133,11 @@
                         type="color"
                         @input="setColor($event.target.value)"
                         :value="richEditor.getAttributes('textStyle').color"
-                        style="opacity: 0; position: absolute; width= 0;" 
+                        style= "display: none"
                         :disabled="!isEditable"
                     />
                     <!-- can't translate the above becuase than the button overlaps with the highlighter -->
+                    <!-- "opacity: 0; position: absolute; width= 0;" doesnt work because overlaps with list-->
                 </label>
 
                 <span class="separator" v-if="menu.textColor"></span>
