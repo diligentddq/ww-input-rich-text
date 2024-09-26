@@ -864,30 +864,145 @@ export default {
             }
             this.setMentions(this.richEditor.getJSON().content.reduce(extractMentions, []));
         },
+
         setLink(url) {
+            // Unset the link if it already exists
             if (this.richEditor.isActive('link')) {
                 this.richEditor.chain().focus().unsetLink().run();
                 return;
             }
-
-            const previousUrl = this.richEditor.getAttributes('link').href;
-            const selectedUrl = url ?? window.prompt('URL', previousUrl);
-
-            // cancelled
-            if (selectedUrl === null) {
+        
+            // Get the URL from the user or provide a default
+            const selectedUrl = url ?? window.prompt('URL (http/https requried)', 'https://');
+        
+            // Cancel if no URL is provided
+            if (selectedUrl === null || selectedUrl.trim() === '') {
                 return;
             }
+        
+            // Get the selection range and check if any text is selected
+            const { from, to, empty } = this.richEditor.state.selection;
+            let friendlyName;
+        
+            if (!empty) {
+                // Text is selected
+                friendlyName = this.richEditor.state.doc.textBetween(from, to, '\n', '\n');
+                
+                // Apply the link to the selected text
+                this.richEditor.chain().focus().extendMarkRange('link').setLink({ href: selectedUrl }).run();
+            } else {
+                // No text selected, prompt for friendly name
+                friendlyName = window.prompt("Text to Display", "link text");
+        
+                // If the user cancels the prompt, exit
+                if (friendlyName === null || friendlyName.trim() === '') {
+                    return;
+                }
+        
+                // Insert the link text with the link mark applied
+                // Insert the link text with the link mark applied
+                this.richEditor.chain().focus().insertContent([
+                    {
+                        type: 'text',
+                        text: friendlyName,
+                        marks: [
+                            {
+                                type: 'link',
+                                attrs: {
+                                    href: selectedUrl,
+                                },
+                            },
+                        ],
+                    },
+                    {
+                        type: 'text',
+                        text: ' ',
+                    },
+                ]).run();
 
-            // empty
-            if (selectedUrl === '') {
-                this.richEditor.chain().focus().extendMarkRange('link').unsetLink().run();
-
-                return;
             }
-
-            // update link
-            this.richEditor.chain().focus().extendMarkRange('link').setLink({ href: selectedUrl }).run();
         },
+        
+            
+        // setLink(url) {
+        //     // Unset the link if it already exists
+        //     if (this.richEditor.isActive('link')) {
+        //         this.richEditor.chain().focus().unsetLink().run();
+        //         return;
+        //     }
+        
+        //     // Get the URL from the user or provide a default
+        //     const selectedUrl = url ?? window.prompt('URL', 'https://');
+        
+        //     // Cancel if no URL is provided
+        //     if (selectedUrl === null || selectedUrl.trim() === '') {
+        //         return;
+        //     }
+        
+        //     // Get the selection range and check if any text is selected
+        //     const { from, to, empty } = this.richEditor.state.selection;
+        //     let friendlyName;
+        
+        //     if (!empty) {
+        //         // Text is selected
+        //         friendlyName = this.richEditor.state.doc.textBetween(from, to, '\n', '\n');
+                
+        //         // Apply the link to the selected text
+        //         this.richEditor.chain().focus().extendMarkRange('link').setLink({ href: selectedUrl }).run();
+        //     } else {
+        //         // No text selected, prompt for friendly name
+        //         friendlyName = window.prompt("Text to Display", "Link text");
+        
+        //         // If the user cancels the prompt, exit
+        //         if (friendlyName === null || friendlyName.trim() === '') {
+        //             return;
+        //         }
+        
+        //         // Insert the link text with the link mark applied
+        //         this.richEditor.chain().focus().insertContent({
+        //             type: 'text',
+        //             text: friendlyName,
+        //             marks: [
+        //                 {
+        //                     type: 'link',
+        //                     attrs: {
+        //                         href: selectedUrl,
+        //                     },
+        //                 },
+        //             ],
+        //         }).run();
+        
+        //         // Append a space after the link
+        //         this.richEditor.chain().focus().insertContent(' ').run();
+        //     }
+        // },
+
+        
+        // setLink(url) {
+        //     if (this.richEditor.isActive('link')) {
+        //         this.richEditor.chain().focus().unsetLink().run();
+        //         return;
+        //     }
+
+        //     const previousUrl = this.richEditor.getAttributes('link').href;
+        //     const selectedUrl = url ?? window.prompt('URL', 'https://');
+        //     const friendlyName = window.prompt("Text to Display", "d");
+
+        //     // cancelled
+        //     if (selectedUrl === null) {
+        //         return;
+        //     }
+
+        //     // empty
+        //     if (selectedUrl === '') {
+        //         this.richEditor.chain().focus().extendMarkRange('link').unsetLink().run();
+
+        //         return;
+        //     }
+
+        //     // update link
+        //     this.richEditor.chain().focus().extendMarkRange('link').setLink({ href: selectedUrl }).run();
+        // },
         setImage(src, alt = '', title = '') {
             if (this.content.customMenu) this.richEditor.commands.setImage({ src, alt, title });
             else {
