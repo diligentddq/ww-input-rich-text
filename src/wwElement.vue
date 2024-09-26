@@ -244,6 +244,7 @@
                     <option value="addColumnBefore">Add Column Before</option>
                     <option value="addColumnAfter">Add Column After</option>
                     <option value="deleteColumn">Delete Column</option>
+                    <option value="mergeCells">Merge/Split Cells</option>
                     <!-- Add more options as needed -->
                 </select>
 
@@ -1147,6 +1148,10 @@ export default {
             case 'removeCellFill':
                 this.removeCellFill();
                 break;
+            case 'mergeCells':
+                this.mergeSplitCells();
+                break;
+
         }
         event.target.value = 'edit'; // This makes the select act as a trigger rather than a state holder
     },
@@ -1197,7 +1202,28 @@ export default {
             dispatch(tr);
         }
     },
-    
+    mergeSplitCells() {
+        const { state } = this.richEditor.view;
+        const { selection } = state;
+        
+        // Check if there is a valid table cell selection
+        if (!selection.$anchorCell || !selection.$headCell) {
+            alert('Please Select a Cell/Cells');
+            return;
+        }
+        
+        // Get the row index of the anchor and head cells
+        const anchorRowIndex = selection.$anchorCell.index(-1);
+        const headRowIndex = selection.$headCell.index(-1);
+
+        // Check if the anchor and head cell are the same (single cell selected for unmerge)
+        if (anchorRowIndex === headRowIndex || selection.$anchorCell === selection.$headCell) {
+            // Attempt to unmerge if the cells are merged
+            this.richEditor.commands.mergeOrSplit();
+        } else {
+            alert('Cannot Merge Seperate Rows');
+        }
+    }
 
     //PUT NEW METHODS ABOVE HERE
     },
