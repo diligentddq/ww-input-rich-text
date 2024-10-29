@@ -1488,6 +1488,7 @@ export default {
             border-spacing: 2px;
             border: var(--exterior-table-border-width) solid var(--exterior-table-border-color) !important;
             background-color: transparent !important;
+            table-layout: fixed;
 
 
             tr {
